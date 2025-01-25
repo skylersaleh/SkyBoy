@@ -6,7 +6,7 @@
 #include <locale.h>
 #include <ctype.h>
 
-#if defined(PLATFORM_IOS) || defined(PLATFORM_MACOS)
+#if defined(SE_PLATFORM_IOS) || defined(SE_PLATFORM_MACOS)
 #include <CoreFoundation/CoreFoundation.h>
 #endif
 
@@ -16,6 +16,21 @@
 // - "Create new files in path" (which replaced "Create new save files in Save Path")
 // - ICON_FK_KEY " Action Replay Codes" (optional)
 // - "Cheat Code Path" 
+
+// Strings added in v4 requiring translation:
+// - "Disabled in Hardcore Mode"
+// - "Rewind"
+// - "Slow"
+// - "Fast Forward"
+// - "Save File"
+// - ICON_FK_CROSSHAIRS " Located Files"
+// - "GUI Scale"
+
+// Strings removed in v4:
+// - "Controller"
+// - "GB Palette %d"
+// - "Reset Palette to Defaults"
+// - ICON_FK_CROSSHAIRS " Located BIOS/Firmware Files"
 
 //#define SHOW_TRANSLATE_ME 1
 
@@ -1680,6 +1695,434 @@ static char* ru_localization_array[]={
   NULL,NULL
 };
 
+static char* pl_localization_array[]={
+    ICON_FK_FILE_O " Load Game", ICON_FK_FILE_O " Uruchom grę",
+    "Up", "Góra",
+    "Down", "Dół",
+    "Left", "Lewo",
+    "Right", "Prawo",
+    "Start", "Start",
+    "Select", "Select",
+    "Fold Screen (NDS)", "Złóż ekran (NDS)",
+    "Tap Screen (NDS)", "Dotknij ekran (NDS)",
+    "Emulator " ICON_FK_PAUSE "/" ICON_FK_PLAY, "Emulator " ICON_FK_PAUSE "/" ICON_FK_PLAY, 
+    "Emulator " ICON_FK_BACKWARD,        "Emulator " ICON_FK_BACKWARD,
+    "Emulator " ICON_FK_FORWARD,         "Emulator " ICON_FK_FORWARD,
+    "Emulator " ICON_FK_FAST_FORWARD,    "Emulator " ICON_FK_FAST_FORWARD,
+    "Capture State 0", "Zapisz stan 0",
+    "Restore State 0", "Wczytaj stan 0",
+    "Capture State 1", "Zapisz stan 1",
+    "Restore State 1", "Wczytaj stan 1",
+    "Capture State 2", "Zapisz stan 2",
+    "Restore State 2", "Wczytaj stan 2",
+    "Capture State 3", "Zapisz stan 3",
+    "Restore State 3", "Wczytaj stan 3",
+    "Analog Up/Down", "Analog góra/dół",
+    "Analog Left/Right", "Analog lewo/prawo",
+    "Analog L", "Analog L",
+    "Analog R", "Analog R",
+    "Display FPS: %2.1f\n", "FPS ekranu: %2.1f\n",
+    "Emulation FPS: %2.1f\n", "FPS emulacji: %2.1f\n",
+    ICON_FK_VOLUME_UP " Audio", ICON_FK_VOLUME_UP " Dzwięk",
+    "Left Audio Channel", "Lewy kanał dzwiękowy",
+    "Right Audio Channel", "Prawy kanał dzwiękowy",
+    "Channel 0", "Kanał 0",
+    "Channel 1", "Kanał 1",
+    "Channel 2", "Kanał 2",
+    "Channel 3", "Kanał 3",
+    "Channel 4", "Kanał 4",
+    "Channel 5", "Kanał 5",
+    "Channel 6", "Kanał 6",
+    "Channel 7", "Kanał 7",
+    "Channel 8", "Kanał 8",
+    "Channel 9", "Kanał 9",
+    "Channel A", "Kanał A",
+    "Channel B", "Kanał B",
+    "Channel C", "Kanał C",
+    "Channel D", "Kanał D",
+    "Channel E", "Kanał E",
+    "Channel F", "Kanał F",
+    "Channel 1 (Square)", "Kanał 1 (Kwadrat)",
+    "Channel 2 (Square)", "Kanał 2 (Kwadrat)",
+    "Channel 3 (Wave)", "Kanał 3 (Fala)",
+    "Channel 4 (Noise)", "Kanał 4 (Szum)",
+    "Channel A (FIFO)", "Kanał A (FIFO)",
+    "Channel B (FIFO)", "Kanał B (FIFO)",
+    "Audio Ring (Samples Available: %d)", "Obwód dzwiękowy (Próbki dostępne: %d)",
+    "Audio Watchdog Triggered %d Times", "Watchdog dzwiękowy wywołany %d razy",
+    ICON_FK_INFO_CIRCLE " Build Info", ICON_FK_INFO_CIRCLE " Informacje o kompilacji",
+    "Commit Hash:", "Hash commita",
+    ICON_FK_SERVER " Registers", ICON_FK_SERVER " Rejestry",
+    ICON_FK_LIST_OL " Disassembly", ICON_FK_LIST_OL " Dekompilacja",
+    ICON_FK_EXCHANGE " Read/Write Memory Address", ICON_FK_EXCHANGE " Adres pamięci do odczytu/zapisu",
+    "address", "adres",
+    "data (32 bit)", "dane (32 bit)",
+    "data (16 bit)", "dane (16 bit)",
+    "data (8 bit)", "dane (8 bit)",
+    "data (signed 32b)", "dane (znak. 32b)",
+    "data (signed 16b)", "dane (znak. 16b)",
+    "data (signed 8b)", "dane (znak. 8b)",
+    ICON_FK_PENCIL_SQUARE_O " Memory", ICON_FK_PENCIL_SQUARE_O " Pamięć",
+    ICON_FK_AREA_CHART " Emulator Stats", ICON_FK_AREA_CHART " Statystyki emulatora",
+    "Show/Hide %s Panel\n", "Pokaż/ukryj panel %s\n",
+    "Press new button " ICON_FK_SIGN_IN, "Naciśnij przycisk " ICON_FK_SIGN_IN,
+    "Move Axis ", "Naciśnij oś ",
+    "Not bound", "Nie związany",
+    "Hat %d %s", "Kapturek %d %s",
+    "Analog %d %s", "Analog %d %s",
+    "Key %d", "Klawisz %d",
+    "Analog %d (%0.2f)", "Analog %d (%0.2f)",
+    "Load ROM from file (.gb, .gbc, .gba, .zip)", "Otwórz ROM (.gb, .gbc, .gba, .zip)",
+    "You can also drag & drop a ROM to load it", "Możesz też przeciągnąć i upuśćić plik ROM aby go otworzyć",
+    "Load ROM(.gb, .gbc, .gba, .zip), save(.sav), or GBA bios (gba_bios.bin) from file", "Otwórz ROM (.gb, .gbc, .gba, .zip), zapis gry (.sav) lub BIOS GBA (gba_bios.bin)",
+    "You can also drag & drop a ROM/save file to load it", "Możesz też przeciągnąć i upuśćić plik ROM lub zapis gry aby go otworzyć",
+    "Open ROM", "Otwórz ROM",
+    ICON_FK_CLOCK_O " Load Recently Played Game", ICON_FK_CLOCK_O " Uruchom ostatnio graną grę",
+    ICON_FK_DOWNLOAD " Export Save", ICON_FK_DOWNLOAD  " Eksportuj zapis gry",
+    "No recently played games", "Brak ostatnio granych gier",
+    ICON_FK_GAMEPAD " Controllers", ICON_FK_GAMEPAD " Kontrolery gry",
+    "Controller", "Kontroler gry",
+    "No Controller", "Brak kontrolerów do gier",
+    "Reset Default Controller Bindings", "Przywróć domyślne przypisanie przyczisków",
+    "Rumble Supported", "Wibracje obsługiwane",
+    "Rumble Not Supported", "Wibracje nieobsługiwane",
+    ICON_FK_FLOPPY_O " Save States", ICON_FK_FLOPPY_O " Zapisane stany",
+    "Save Slot %d", "Miejsce %d",
+    "Capture", "Zapisz",
+    "Restore", "Wczytaj",
+    "This save state came from an incompatible build. SkyEmu has attempted to recover it, but there may be issues", "Zapis stanu pochodzi z niekompatybilnej kompilacji. SkyEmu próbował go przewrócić, ale mogą być problemy",
+    ICON_FK_DESKTOP " Display Settings", ICON_FK_DESKTOP " Ustawienia ekranu",
+    "Screen Shader", "Shader ekranu",
+    "Pixelate\0Bilinear\0LCD\0LCD & Subpixels\0Smooth Upscale (xBRZ)\0", "Pikselacja\0Bilinear\0Ekran LCD\0Ekran LCD i subpiksele\0Płynne skalowanie (xBRZ)\0",
+    "Screen Rotation", "Obrót ekranu",
+    "0 degrees\00090 degrees\000180 degrees\000270 degrees\0", "0 stopni\00090 stopni\000180 stopni\000270 stopni\0",
+    "Color Correction", "Korekta koloru",
+    "Strength: %.2f", "Siła: %.2f",
+    "Screen Ghosting", "Smużenie obrazu",
+    "Force Integer Scaling", "Zmuś równomierne skalowanie",
+    "Stretch Screen to Fit", "Dopasuj ekran do widoku",
+    "Game Boy Color Palette", "Paleta Game Boy Color",
+    "GB Palette %d", "Paleta GB %d",
+    "Reset Palette to Defaults", "Przywróć domyślną palete",
+    ICON_FK_KEYBOARD_O " Keybinds", ICON_FK_KEYBOARD_O " Skróty klawiszowe",
+    "Reset Default Keybinds", "Przywróć domyślne skróty klawiszowe",
+    ICON_FK_WRENCH " Advanced",ICON_FK_WRENCH " Zaawansowane",
+    "Light Mode", "Tryb jasny",
+    "Show Debug Tools", "Pokaż narzędzia debugowania",
+    "Adjust volume", "Ustaw głośność",
+    "Show/Hide Menu Panel", "Pokaż/ukryj panel menu",
+    "Rewind at 8x speed", "Przewij prędkością 8x",
+    "Rewind at 4x speed", "Przewij prędkością 4x",
+    "Toggle pause/play.\n When paused, the rom selection screen will be shown.", "Tryb pauzy.\n Ekran ROM będzie pokazany w trybie pauzy.",
+    "Run at 2x Speed", "Graj prędkością 2x",
+    "Run at the fastest speed possible", "Graj najszybszą prędkością",
+    "Screen", "Ekran",
+    "LCD Shader Init", "Inicjacia shadera LCD",
+    "Menu", "Menu",
+    "Copy as..", "Kopiuj jako..",
+    "Current", "Aktualny",
+    "Original", "Oryginał",
+    "Opacity", "Nieprzezroczystość",
+    ICON_FK_HAND_O_RIGHT " Touch Control Settings", ICON_FK_HAND_O_RIGHT " Ustawienia kontrolek dotykowych",
+    "Hide when inactive", "Ukryj gdy nieaktywne",
+    ICON_FK_FILE_O " Dump Memory to File", ICON_FK_FILE_O " Zrzuć pamięć do pliku",
+    "Start Address", "Adres pocz.",
+    "Size", "Rozmiar",
+    "Save Memory Dump", "Zapisz zrzut pamięci",
+    ICON_FK_RANDOM " Last Branch Locations", ICON_FK_RANDOM " Ostatnie lokalizacje gałężi",
+    "Opacity: %.2f", "Nieprzezroczystość: %.2f",
+    "Step Instruction", "Krok do nast. instrukcji",
+    "Step Frame", "Krok do nast. klatki",
+    "Disconnect Log", "Dziennik odłączeń",
+    ICON_FK_FOLDER_OPEN " Open File From Disk", ICON_FK_FOLDER_OPEN " Otwórz plik z dysku",
+    "Exit File Browser", "Wyjdź z eksploratora plików",
+    "Go back to recently loaded games", "Wróć do ostatnio ładowanych gier",
+    "Go to parent directory", "Przejdź do katalogu nadrzędnego",
+    "UP", "Góra",
+    "DOWN", "Dół",
+    "LEFT", "Lewo",
+    "RIGHT", "Prawo",
+    "Reset Game", "Zresetuj grę",
+    "Turbo A", "Turbo A",
+    "Turbo B", "Turbo B",
+    "Turbo X", "Turbo X",
+    "Turbo Y", "Turbo Y",
+    "Turbo L", "Turbo L",
+    "Turbo R", "Turbo R",
+    "Solar Sensor+", "Czujnik światła +",
+    "Solar Sensor-", "Czujnik światła -",
+    "Theme", "Motyw",
+    "Solar Sensor", "Czujnik światła",
+    "Brightness: %.2f", "Jasność: %.2f",
+    "Dark\0Light\0Black\0Custom\0", "Ciemny\0Jasny\0Czarny\0Niestandardowy\0",
+    "Always Show Menu/Nav Bar", "Zawsze pokazuj menu i pasek nawigacyjny",
+    "Language", "Język",
+    "SPACE", "Spacja",
+    "ESCAPE", "ESC",
+    "ENTER", "Enter",
+    "BACKSPACE", "BACKSPACE",
+    "INSERT", "INSERT",
+    "DELETE", "DELETE",
+    "RIGHT", "Prawo",
+    "LEFT", "Lewo",
+    "DOWN", "Dół",
+    "UP", "Góra",
+    "LEFT_SHIFT", "Lewy Shift",
+    "LEFT_CONTROL", "Lewy Control",
+    "LEFT_ALT", "Lewy Alt",
+    "LEFT_SUPER", "Lewy Super",
+    "RIGHT_SHIFT", "Prawy Shift",
+    "RIGHT_CONTROL", "Prawy Control",
+    "RIGHT_ALT", "Prawy Alt",
+    "RIGHT_SUPER", "Prawy Super",
+    "MENU", "Menu",
+    "Enable Turbo and Hold Button Modifiers", "Włącz modyfikatory przyczisków Turbo i Hold",
+    "Scale", "Skala",
+    "Scale: %.2f","Skala: %.2f",
+    "GBA Color Correction Type","Typ korekty kolorów GBA",
+    ICON_FK_TEXT_HEIGHT " GUI",ICON_FK_TEXT_HEIGHT " Interfejs",
+    "Full Screen","Pełny ekran",
+    ICON_FK_CODE_FORK " Additional Search Paths",ICON_FK_CODE_FORK " Dodatkowe przeszukiwane katalogi",
+    "Save File/State Path","Katalog stanów",
+    "BIOS/Firmware Path","Katalog BIOS",
+    "Create new save files in Save Path","Stwórz nowe",
+    ICON_FK_CROSSHAIRS " Located Files",ICON_FK_CROSSHAIRS " Znalezione pliki",
+    "Force GB games to run in DMG mode","Zmusz gry GB w tryb DMG",
+    "Enable HTTP Control Server","Włącz serwer HTTP",
+    "Server Port","Port serwera",
+    "Toggle Full Screen","Tryb pełnoekranowy",
+    "Can't find all needed BIOS/Boot ROM/Firmware Files.","Nie można znalezć wszystkich plików BIOS/\nBoot ROM/Firmware.",
+    "Accuracy will suffer and some features won't work.","Dokładność może się pogorszyć.\nNiektóre funkcję mogą nie działać.",
+    //New in v3
+    "Avoid NDS Touchscreen", "Unikaj ekranu dotykowego NDS",
+    ICON_FK_PLUS " New", ICON_FK_PLUS " Nowy",
+    ICON_FK_KEY " Action Replay Codes", ICON_FK_KEY " Kody Action Replay",
+    "Create new files in paths", "Twórz nowe pliki w katalogach",
+    "Cheat Code Path", "Katalog oszustw",
+    // extra added
+    "Hardcore Mode", "Tryb hardkorowy",
+    "Theme Path","Katalog motywów",
+    "Custom Font","Niest. czcionka",
+    "Font Scale","Rozmiar czcionki",
+    "Custom Theme Name","Nazwa niestandardowego motywu",
+    "Custom Theme Author","Autor niestandardowego motywu",
+    ICON_FK_FILE_O " File Browser", ICON_FK_FILE_O " Eksplorator plików",
+    "Go to home directory","Przejdź do katalogu domowego",
+    NULL,NULL
+};
+
+static char* sw_localization_array[]={
+    ICON_FK_FILE_O " Load Game", ICON_FK_FILE_O " Öppna Spel",
+    "Up", "Upp",
+    "Down", "Ner",
+    "Left", "Vänster",
+    "Right", "Höger",
+    "Start", "Starta",
+    "Select", "Välj",
+    "Fold Screen (NDS)", "Vik Skärmen (NDS)",
+    "Tap Screen (NDS)", "Rör Skärm (NDS)",
+    "Emulator " ICON_FK_PAUSE "/" ICON_FK_PLAY, "Emulator " ICON_FK_PAUSE "/" ICON_FK_PLAY, 
+    "Emulator " ICON_FK_BACKWARD,        "Emulator " ICON_FK_BACKWARD,
+    "Emulator " ICON_FK_FORWARD,         "Emulator " ICON_FK_FORWARD,
+    "Emulator " ICON_FK_FAST_FORWARD,    "Emulator " ICON_FK_FAST_FORWARD,
+    "Capture State 0", "Spara Plats 0",
+    "Restore State 0", "Återställ Plats 0",
+    "Capture State 1", "Spara Plats 1",
+    "Restore State 1", "Återställ Plats 1",
+    "Capture State 2", "Spara Plats 2",
+    "Restore State 2", "Återställ Plats 2",
+    "Capture State 3", "Spara Plats 3",
+    "Restore State 3", "Återställ Plats 3",
+    "Analog Up/Down", "Analog Up/Ner",
+    "Analog Left/Right", "Analog Vänster/Höger",
+    "Analog L", "Analog L",
+    "Analog R", "Analog R",
+    "Display FPS: %2.1f\n", "Visnings FPS: %2.1f\n",
+    "Emulation FPS: %2.1f\n", "Emulerings FPS: %2.1f\n",
+    ICON_FK_VOLUME_UP " Audio", ICON_FK_VOLUME_UP " Ljud",
+    "Left Audio Channel", "Vänster Ljud Kanal",
+    "Right Audio Channel", "Höger Ljud Kanal",
+    "Channel 0", "Kanal 0",
+    "Channel 1", "Kanal 1",
+    "Channel 2", "Kanal 2",
+    "Channel 3", "Kanal 3",
+    "Channel 4", "Kanal 4",
+    "Channel 5", "Kanal 5",
+    "Channel 6", "Kanal 6",
+    "Channel 7", "Kanal 7",
+    "Channel 8", "Kanal 8",
+    "Channel 9", "Kanal 9",
+    "Channel A", "Kanal A",
+    "Channel B", "Kanal B",
+    "Channel C", "Kanal C",
+    "Channel D", "Kanal D",
+    "Channel E", "Kanal E",
+    "Channel F", "Kanal F",
+    "Channel 1 (Square)", "Kanal 1 (Kwadrat)",
+    "Channel 2 (Square)", "Kanal 2 (Kwadrat)",
+    "Channel 3 (Wave)", "Kanal 3 (Fala)",
+    "Channel 4 (Noise)", "Kanal 4 (Szum)",
+    "Channel A (FIFO)", "Kanal A (FIFO)",
+    "Channel B (FIFO)", "Kanal B (FIFO)",
+    "Audio Ring (Samples Available: %d)", "Ljud Ring (Samlingar Tillgängliga): %d)",
+    "Audio Watchdog Triggered %d Times", "Ljud Watchdog Utlöst %d Gånger",
+    ICON_FK_INFO_CIRCLE " Build Info", ICON_FK_INFO_CIRCLE " Bygg information",
+    "Commit Hash:", "Commit Hash",
+    ICON_FK_SERVER " Registers", ICON_FK_SERVER " Registrar",
+    ICON_FK_LIST_OL " Disassembly", ICON_FK_LIST_OL " Disassemblerkod",
+    ICON_FK_EXCHANGE " Read/Write Memory Address", ICON_FK_EXCHANGE " Läsa/Skriv Minne Adress",
+    "address", "adress",
+    "data (32 bit)", "data (32 bit)",
+    "data (16 bit)", "data (16 bit)",
+    "data (8 bit)", "data (8 bit)",
+    "data (signed 32b)", "data (znak. 32b)",
+    "data (signed 16b)", "data (znak. 16b)",
+    "data (signed 8b)", "data (znak. 8b)",
+    ICON_FK_PENCIL_SQUARE_O " Memory", ICON_FK_PENCIL_SQUARE_O " Minne",
+    ICON_FK_AREA_CHART " Emulator Stats", ICON_FK_AREA_CHART " Emulerings Statistik",
+    "Show/Hide %s Panel\n", "Visa/Göm panel %s\n",
+    "Press new button " ICON_FK_SIGN_IN, "Tryck ny knapp " ICON_FK_SIGN_IN,
+    "Move Axis ", "Rörelse Axel ",
+    "Not bound", "Inte Bunden",
+    "Hat %d %s", "Hatt %d %s",
+    "Analog %d %s", "Analog %d %s",
+    "Key %d", "Nyckel %d",
+    "Analog %d (%0.2f)", "Analog %d (%0.2f)",
+    "Load ROM from file (.gb, .gbc, .gba, .zip)", "Öppna ROM från fil (.gb, .gbc, .gba, .zip)",
+    "You can also drag & drop a ROM to load it", "Du kan även dra och släppa en ROM fil för at öppna den",
+    "Load ROM(.gb, .gbc, .gba, .zip), save(.sav), or GBA bios (gba_bios.bin) from file", "Öppna ROM(.gb, .gbc, .gba, .zip), Sparfil(.sav), eller GBA bios(gba_bios.bin)",
+    "You can also drag & drop a ROM/save file to load it", "Du kan även dra och släppa en ROM fil eller sparningsfil för att öppna den",
+    "Open ROM", "Öppna ROM",
+    ICON_FK_CLOCK_O " Load Recently Played Game", ICON_FK_CLOCK_O " Öppna Senaste Spelat Spel",
+    ICON_FK_DOWNLOAD " Export Save", ICON_FK_DOWNLOAD  " Exportera Sparningsfil",
+    "No recently played games", "Inga nyligen spelade spel",
+    ICON_FK_GAMEPAD " Controllers", ICON_FK_GAMEPAD " Kontroller",
+    "Controller", "Kontroller",
+    "No Controller", "Ingen Kontroller",
+    "Reset Default Controller Bindings", "Återställ Standard Kontroller Bindningar",
+    "Rumble Supported", "Rumble Stöd",
+    "Rumble Not Supported", "Rumble Stöds Inte",
+    ICON_FK_FLOPPY_O " Save States", ICON_FK_FLOPPY_O " Sparning Platser",
+    "Save Slot %d", "Plats %d",
+    "Capture", "Fånga",
+    "Restore", "Återställ",
+    "This save state came from an incompatible build. SkyEmu has attempted to recover it, but there may be issues", "Denna Sparnings Plats kom från en ostöd version. SkyEmu har försökt att återställa den, men det kan förekomma problem",
+    ICON_FK_DESKTOP " Display Settings", ICON_FK_DESKTOP " Visnings Alternativ",
+    "Screen Shader", "Visnings Shader",
+    "Pixelate\0Bilinear\0LCD\0LCD & Subpixels\0Smooth Upscale (xBRZ)\0", "Pixelera\0Bilinjär\0LCD\0LCD & Subpixlar\0Smidig Uppskalning (xBRZ)\0",
+    "Screen Rotation", "Skärm Rotation",
+    "0 degrees\00090 degrees\000180 degrees\000270 degrees\0", "0 grader\00090 grader\000180 grader\000270 grader0",
+    "Color Correction", "Färgkorrigering",
+    "Strength: %.2f", "Styrka: %.2f",
+    "Screen Ghosting", "Skärm Ghosting",
+    "Force Integer Scaling", "Tvinga Heltal Skalning",
+    "Stretch Screen to Fit", "Tänja Skärmen för att passa",
+    "Game Boy Color Palette", "Game Boy Color Palett",
+    "GB Palette %d", "GB Palett %d",
+    "Reset Palette to Defaults", "Återställ Palet till Standard",
+    ICON_FK_KEYBOARD_O " Keybinds", ICON_FK_KEYBOARD_O " Nyckelbindningar",
+    "Reset Default Keybinds", "Återställ till Standard Nyckelbindningar",
+    ICON_FK_WRENCH " Advanced",ICON_FK_WRENCH " Avancerat",
+    "Light Mode", "Ljust Läge",
+    "Show Debug Tools", "Visa Felsöks Verktyg",
+    "Adjust volume", "Justera volym",
+    "Show/Hide Menu Panel", "Visa/Göm Meny Panel",
+    "Rewind at 8x speed", "Bakåtspola 8x",
+    "Rewind at 4x speed", "Bakåtspola 4x",
+    "Toggle pause/play.\n When paused, the rom selection screen will be shown.", "Växla pausat/spela.\n Då pausat så visas rom alternativs fönstret.",
+    "Run at 2x Speed", "Körhastighet 2x",
+    "Run at the fastest speed possible", "Välj snabbast körhastighet",
+    "Screen", "Skärm",
+    "LCD Shader Init", "LCD Shader Initialisering",
+    "Menu", "Meny",
+    "Copy as..", "Kopiera som..",
+    "Current", "Nuvariga",
+    "Original", "Orginal",
+    "Opacity", "Opacitet",
+    ICON_FK_HAND_O_RIGHT " Touch Control Settings", ICON_FK_HAND_O_RIGHT " Touch Inställningar",
+    "Hide when inactive", "Göm vid inaktivitet",
+    ICON_FK_FILE_O " Dump Memory to File", ICON_FK_FILE_O " Överför Minne till Fil",
+    "Start Address", "Start Adress",
+    "Size", "Storlek",
+    "Save Memory Dump", "Spara Minne Överförning",
+    ICON_FK_RANDOM " Last Branch Locations", ICON_FK_RANDOM " Senast Grenings Plats",
+    "Opacity: %.2f", "Opacitet: %.2f",
+    "Step Instruction", "Avancera Instruktion",
+    "Step Frame", "Avancera Bildruta",
+    "Disconnect Log", "Urkopplings log",
+    ICON_FK_FOLDER_OPEN " Open File From Disk", ICON_FK_FOLDER_OPEN " Öppna Fil",
+    "Exit File Browser", "Stäng Fil Utforskaren",
+    "Go back to recently loaded games", "Gå tillbaka till nyligen öppnade spel",
+    "Go to parent directory", "Gå till filmappen ovanför",
+    "Reset Game", "Återställ Spellet",
+    "Turbo A", "Turbo A",
+    "Turbo B", "Turbo B",
+    "Turbo X", "Turbo X",
+    "Turbo Y", "Turbo Y",
+    "Turbo L", "Turbo L",
+    "Turbo R", "Turbo R",
+    "Solar Sensor+", "Solsensor +",
+    "Solar Sensor-", "Solsensor -",
+    "Theme", "Tema",
+    "Solar Sensor", "Solsensor",
+    "Brightness: %.2f", "Ljusstyrka: %.2f",
+    "Dark\0Light\0Black\0Custom\0", "Mörkt\0Ljust\0Svart\0Anpassad\0",
+    "Always Show Menu/Nav Bar", "Visa alltid Meny/Navigation",
+    "Language", "Språk",
+    "UP", "UP",
+    "DOWN", "NER",
+    "LEFT", "VÄNSTER",
+    "RIGHT", "HÖGER",
+    "SPACE", "MELLANSLAG",
+    "ESCAPE", "ESCAPE",
+    "ENTER", "RETUR",
+    "BACKSPACE", "BACKSTEG",
+    "INSERT", "INSERT",
+    "DELETE", "DELETE",
+    "LEFT_SHIFT", "VÄNSTER_SKIFT",
+    "LEFT_CONTROL", "VÄNSTER_KONTROLL",
+    "LEFT_ALT", "VÄNSTER_ALTERNATIV",
+    "LEFT_SUPER", "LEFT_KOMMANDO",
+    "RIGHT_SHIFT", "HÖGER_SKIFT",
+    "RIGHT_CONTROL", "HÖGER_KONTROLL",
+    "RIGHT_ALT", "HÖGER_ALTERNATIV",
+    "RIGHT_SUPER", "HÖGER_KOMMANDO",
+    "MENU", "MENY",
+    "Enable Turbo and Hold Button Modifiers", "Aktivera Turbo och Knapphåll Modifieringar",
+    "Scale", "Skala",
+    "Scale: %.2f","Skala: %.2f",
+    "GBA Color Correction Type","GBA Färgkorrigering Typ",
+    ICON_FK_TEXT_HEIGHT " GUI",ICON_FK_TEXT_HEIGHT " GUI",
+    "Full Screen","Helskärm",
+    ICON_FK_CODE_FORK " Additional Search Paths",ICON_FK_CODE_FORK " Ytterligare Sökningsvägar",
+    "Save File/State Path","Sparningsfil Filväg",
+    "BIOS/Firmware Path","BIOS/Firmware Filväg",
+    "Create new save files in Save Path","Skapa nya sparfiler i sparningsfil filvägen",
+    ICON_FK_CROSSHAIRS " Located Files",ICON_FK_CROSSHAIRS " Hittade Filer",
+    "Force GB games to run in DMG mode","Tvinga GB spel at köra i DMG läge",
+    "Enable HTTP Control Server","Aktivera HTTP Kontroll Server",
+    "Server Port","Server Porten",
+    "Toggle Full Screen","Växla Helskärm",
+    "Can't find all needed BIOS/Boot ROM/Firmware Files.","Kan inte hitta väsentliga BIOS/Firmware/Boot ROM Filer.",
+    "Accuracy will suffer and some features won't work.","Noggranhet will lida and några funktioner kommer inte fungera.",
+    //New in v3
+    "Avoid NDS Touchscreen", "Unvik NDS Touchskärm",
+    ICON_FK_PLUS " New", ICON_FK_PLUS " Ny",
+    ICON_FK_KEY " Action Replay Codes", ICON_FK_KEY " Action Replay Koder",
+    "Create new files in paths", "Skapa nya filer i filvägar",
+    "Cheat Code Path", "Fusk Koder Filväg",
+    // extra added
+    "Hardcore Mode", "Hardcore Läge",
+    "Theme Path","Tema filväg",
+    "Custom Font","Anpassad Font",
+    "Font Scale","Font Skala",
+    "Custom Theme Name","Anpassat Tema Namn",
+    "Custom Theme Author","Anpassat Tema Författare",
+    ICON_FK_FILE_O " File Browser", ICON_FK_FILE_O " Fil Utforskare",
+    "Go to home directory","Gå till hemma filmappen",
+    NULL,NULL
+};
+
 char ** localization_map=NULL;
 size_t localization_size=0;
 int se_get_default_language();
@@ -1696,6 +2139,8 @@ void se_set_language(int language_enum){
     if(language_enum==SE_LANG_GERMAN)new_map = de_localization_array;
     if(language_enum==SE_LANG_ITALIAN)new_map = it_localization_array;
     if(language_enum==SE_LANG_RUSSIAN)new_map = ru_localization_array;
+    if(language_enum==SE_LANG_POLISH)new_map = pl_localization_array;
+    if(language_enum==SE_LANG_SWEDISH)new_map = sw_localization_array;
     if(new_map!=localization_map){
         localization_map=new_map;
         localization_size=0;
@@ -1753,6 +2198,10 @@ int se_convert_locale_to_enum(const char* clocale) {
         return SE_LANG_RUSSIAN;
     } else if (strcmp(lowercase_locale, "es") == 0 || strcmp(lowercase_locale, "spa") == 0 || strcmp(lowercase_locale, "spanish") == 0) {
         return SE_LANG_SPANISH;
+    } else if (strcmp(lowercase_locale, "pl") == 0 || strcmp(lowercase_locale, "pol") == 0 || strcmp(lowercase_locale, "polish") == 0) {
+        return SE_LANG_POLISH;
+    } else if (strcmp(lowercase_locale, "sw") == 0 || strcmp(lowercase_locale, "swe") == 0 || strcmp(lowercase_locale, "swedish") == 0) {
+        return SE_LANG_SWEDISH;
     }
     return SE_LANG_DEFAULT;
 }
@@ -1761,26 +2210,28 @@ const char* se_language_string(int language_enum){
         case SE_LANG_DEFAULT: return se_localize("Default");
         case SE_LANG_ENGLISH: return "English";
         case SE_LANG_DUTCH: return "Nederlands";
-        case SE_LANG_DANISH: return "Dansk";
         case SE_LANG_GERMAN: return "Deutsch";
         case SE_LANG_ITALIAN: return "Italiano";
+        case SE_LANG_SWEDISH: return "Svenska";
         // These languages require unicode support to represent correctly
 #ifdef UNICODE_GUI
         case SE_LANG_CHINESE: return "中文";
         case SE_LANG_ARMENIAN: return "Հայերեն";
         case SE_LANG_GREEK: return "Ελληνικά";
         case SE_LANG_RUSSIAN: return "Русский";
+        case SE_LANG_POLISH: return "Polski";
+        case SE_LANG_DANISH: return "Dansk";
 #endif 
     }
     return "";
 }
-#ifdef PLATFORM_ANDROID
+#ifdef SE_PLATFORM_ANDROID
 extern void se_android_get_language(char* language_buffer, size_t buffer_size);
 #endif
 int se_get_default_language(){
     static int default_lang = SE_LANG_DEFAULT;
     if(default_lang==SE_LANG_DEFAULT){
-        #if defined(PLATFORM_IOS) || defined(PLATFORM_MACOS)
+        #if defined(SE_PLATFORM_IOS) || defined(SE_PLATFORM_MACOS)
         // Try to get from CF Locale
         if(default_lang == SE_LANG_DEFAULT){
             char lang_buffer[128];
@@ -1791,7 +2242,7 @@ int se_get_default_language(){
             if(default_lang != SE_LANG_DEFAULT) printf("Detected CF locale language: %s (enum: %s)\n", lang_buffer ,se_language_string(default_lang));
         }
         #endif
-#ifdef PLATFORM_ANDROID
+#ifdef SE_PLATFORM_ANDROID
         // Try to get from JNI
         if(default_lang == SE_LANG_DEFAULT){
             char lang_buffer[128];
@@ -1819,11 +2270,12 @@ int se_get_default_language(){
             printf("Couldn't detect language, defaulting to English\n");
             default_lang = SE_LANG_ENGLISH;
         }
-        #ifdef PLATFORM_WINDOWS
+        #ifdef SE_PLATFORM_WINDOWS
             //Needed to let windows open files from UTF-8 paths
             setlocale(LC_ALL, ".65001");
         #endif
     }
+    if(strcmp("",se_language_string(default_lang))==0)return SE_LANG_ENGLISH;
     return default_lang;
 
 }
