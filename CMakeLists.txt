@@ -1,5 +1,6 @@
-cmake_minimum_required(VERSION 3.15) # Needed to set MSVC Runtime type
+cmake_minimum_required(VERSION 3.27) # Needed to set MSVC Runtime type
 set(CMAKE_OSX_ARCHITECTURES "arm64;x86_64" CACHE STRING "" FORCE)
+include("cmake/RPi.cmake")
 
 if(APPLE AND (NOT IOS) AND (NOT ANDROID))
   set(MACOS 1)
@@ -14,6 +15,13 @@ else()
   project(SkyEmu C CXX)
 endif()
 
+if(CMAKE_SYSTEM_PROCESSOR MATCHES "armv7l|aarch64|arm")
+    set(IS_ARM TRUE)
+else()
+    set(IS_ARM FALSE)
+endif()
+
+command_exists("vcgencmd" IS_VIDEOCORE)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_CXX_STANDARD 11)
@@ -45,7 +53,7 @@ if (MSVC)
     # No secure development lifecycle features
     # Exception handling model: Catch C++ exceptions only, assume that "extern C" functions will never throw a C++ exception.
     # Disable all forms of MSVC debug iterator checking in new and old Visual Studios.
-    # Causes the application to use the multithread, static version of the run-time library. 
+    # Causes the application to use the multithread, static version of the run-time library.
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /MT /Ox /Ob2 /Oi /Ot /GT /GF /GS- /fp:fast /fp:except- /MP /sdl- /EHsc /D_SECURE_SCL=0 /D_SCL_SECURE_NO_WARNINGS /D_ITERATOR_DEBUG_LEVEL=0 /D_HAS_ITERATOR_DEBUGGING=0")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MT /Ox /Ob2 /Oi /Ot /GT /GF /GS- /fp:fast /fp:except- /MP /sdl- /EHsc /D_SECURE_SCL=0 /D_SCL_SECURE_NO_WARNINGS /D_ITERATOR_DEBUG_LEVEL=0 /D_HAS_ITERATOR_DEBUGGING=0 ")
 
@@ -60,9 +68,9 @@ if (NOT EMSCRIPTEN)
   set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -g -O3 ")
   set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -g -O3 ")
   set(UNICODE_GUI 1)
-else () 
+else ()
   set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -O3 -DNDEBUG")
-  set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -O3 -DNDEBUG") 
+  set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -O3 -DNDEBUG")
 endif ()
 if(IOS)
     set(CMAKE_XCODE_ATTRIBUTE_IPHONEOS_DEPLOYMENT_TARGET "11.0" CACHE STRING "Minimum iOS deployment version" FORCE)
@@ -75,7 +83,7 @@ if(WIN32)
 endif()
 if(ANDROID)
   set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS}")
-  set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS}") 
+  set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS}")
   set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 endif()
 if(NOT IOS)
@@ -89,6 +97,20 @@ if ((CMAKE_SYSTEM_NAME STREQUAL Linux) AND NOT EMSCRIPTEN AND NOT ANDROID)
     find_package(Threads REQUIRED)
     find_package(ALSA REQUIRED)
     set(SE_PLATFORM_LINUX TRUE)
+
+    # Check for GLES3 support on the Raspberry Pi
+    if (IS_ARM AND IS_VIDEOCORE)
+        check_gles3_support(SUPPORTS_GLES3)
+        if(SUPPORTS_GLES3)
+           message("GLES3 supported")
+           set(SE_FORCE_GLES3 TRUE)
+           add_definitions(-DSE_FORCE_GLES3=1)
+        else()
+           message("GLES2 supported")
+           set(SE_FORCE_GLES2 TRUE)
+           add_definitions(-DSE_FORCE_GLES2=1)
+        endif()
+    endif()
     add_definitions(-DSE_PLATFORM_LINUX=1)
 endif()
 if (UNIX AND NOT APPLE AND NOT SE_PLATFORM_LINUX AND NOT EMSCRIPTEN AND NOT ANDROID)
@@ -129,8 +151,8 @@ endif()
 # TinyFileDialogs
 if ((NOT IOS) AND (NOT EMSCRIPTEN) AND (NOT ANDROID) AND (NOT SE_PLATFORM_LINUX) AND (NOT SE_PLATFORM_FREEBSD))
     set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -DUSE_TINY_FILE_DIALOGS")
-    set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -DUSE_TINY_FILE_DIALOGS") 
-    add_library(tinyfd STATIC 
+    set(CMAKE_C_FLAGS  "${CMAKE_C_FLAGS} -DUSE_TINY_FILE_DIALOGS")
+    add_library(tinyfd STATIC
         src/tinyfiledialogs/tinyfiledialogs.h
         src/tinyfiledialogs/tinyfiledialogs.c
     )
@@ -144,13 +166,13 @@ if(NOT EMSCRIPTEN)
 endif()
 
 #=== LIBRARY: cimgui + Dear ImGui
-add_library(cimgui STATIC 
-    src/cimgui/cimgui.cpp 
-    src/cimgui/cimgui.h 
+add_library(cimgui STATIC
+    src/cimgui/cimgui.cpp
+    src/cimgui/cimgui.h
     src/cimgui/imgui/imgui.cpp
     src/cimgui/imgui/imgui.h
-    src/cimgui/imgui/imgui_widgets.cpp 
-    src/cimgui/imgui/imgui_draw.cpp 
+    src/cimgui/imgui/imgui_widgets.cpp
+    src/cimgui/imgui/imgui_draw.cpp
     src/cimgui/imgui/imgui_tables.cpp
     src/cimgui/imgui/imgui_demo.cpp
     )
@@ -164,12 +186,12 @@ if(USE_SDL)
     set(SDL_SHARED OFF CACHE BOOL "Build Shared" FORCE)
     set(SDL_STATIC ON CACHE BOOL "Build Static" FORCE)
     set(SDL_FORCE_STATIC_VCRT ON CACHE BOOL "USE LIBC" FORCE)
-    set(SDL_LIBC ON CACHE BOOL "USE LIBC" FORCE)    
+    set(SDL_LIBC ON CACHE BOOL "USE LIBC" FORCE)
     set(SDL_STATIC_PIC ON CACHE BOOL "Build Static PIC" FORCE)
     # Allow some projects to be built conditionally.
     set(SDL2_DISABLE_SDL2MAIN  ON CACHE BOOL "Disable building/installation of SDL2main" FORCE)
     set(SDL2_DISABLE_INSTALL    ON CACHE BOOL "Disable installation of SDL2" FORCE)
-    set(SDL2_DISABLE_UNINSTALL  ON CACHE BOOL "Disable uninstallation of SDL2" FORCE)    
+    set(SDL2_DISABLE_UNINSTALL  ON CACHE BOOL "Disable uninstallation of SDL2" FORCE)
 
     set(SDL_LIBC               ON CACHE BOOL "Use the system C library" ${OPT_DEF_LIBC} FORCE)
     set(SDL_ATOMIC OFF CACHE BOOL "SDL Video support" FORCE)
@@ -177,7 +199,7 @@ if(USE_SDL)
     set(SDL_FILE OFF CACHE BOOL "SDL Video support" FORCE)
     set(SDL_THREAD OFF CACHE BOOL "SDL Video support" FORCE)
     set(SDL_RENDER OFF CACHE BOOL "SDL Video support" FORCE)
-    set(SDL_LOCALE OFF CACHE BOOL "SDL Video support" FORCE)    
+    set(SDL_LOCALE OFF CACHE BOOL "SDL Video support" FORCE)
 
     add_definitions(-DSDL_LEAN_AND_MEAN=1)
     add_subdirectory(src/SDL2)
@@ -229,7 +251,13 @@ else()
     set_property(TARGET sokol PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreaded")
     if (SE_PLATFORM_LINUX OR SE_PLATFORM_FREEBSD)
         target_include_directories(sokol PRIVATE "${X11_INCLUDE_DIR}")
-        target_link_libraries(sokol INTERFACE ${X11_X11_LIB} ${X11_Xi_LIB} ${X11_Xcursor_LIB} OpenGL::OpenGL dl)
+        if(SE_FORCE_GLES2)
+          target_link_libraries(sokol INTERFACE ${X11_X11_LIB} ${X11_Xi_LIB} ${X11_Xcursor_LIB} OpenGL::GLES2 EGL dl)
+        elseif(SE_FORCE_GLES3)
+          target_link_libraries(sokol INTERFACE ${X11_X11_LIB} ${X11_Xi_LIB} ${X11_Xcursor_LIB} OpenGL::GLES3 EGL dl)
+        else()
+          target_link_libraries(sokol INTERFACE ${X11_X11_LIB} ${X11_Xi_LIB} ${X11_Xcursor_LIB} OpenGL::OpenGL dl)
+        endif()
     endif()
     if (CMAKE_SYSTEM_NAME STREQUAL Linux)
         target_link_libraries(sokol INTERFACE m)
@@ -433,4 +461,3 @@ elseif(EMSCRIPTEN)
                 ${CMAKE_CURRENT_SOURCE_DIR}/src/resources/icons/favicon_package
                 ${CMAKE_CURRENT_BINARY_DIR}/bin)
 endif()
-
